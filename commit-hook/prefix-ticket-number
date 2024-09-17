@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Automatically adds ticket number to every commit message.
+#
+branchName=$(git rev-parse --abbrev-ref HEAD) 
+ticketNumber=$(echo $branchName | sed -n "s/.*\///p" | grep -oE "^[[:alpha:]]*-[[:digit:]]*" | awk '{print $1}')
+
+echo "$ticketNumber"': '$(cat "$1") > "$1"
